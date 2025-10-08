@@ -1,0 +1,9 @@
+<nav class="sidebar">
+  <ul>
+    <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+    <li *ngIf="role === 'Admin'"><a routerLink="/employees" routerLinkActive="active">Employees</a></li>
+    <li *ngIf="role !== 'Employee'"><a routerLink="/teams" routerLinkActive="active">Teams</a></li>
+    <li *ngIf="role === 'Admin'"><a routerLink="/holidays" routerLinkActive="active">Holidays</a></li>
+    <li><a routerLink="/leaves" routerLinkActive="active">Leaves</a></li>
+  </ul>
+</nav>

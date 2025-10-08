@@ -1,0 +1,48 @@
+<div class="dashboard-wrapper">
+  <h1>Admin Dashboard</h1>
+
+  <div class="cards">
+    <div class="card">
+      <h2>{{ totalEmployees }}</h2>
+      <p>Total Employees</p>
+    </div>
+    <div class="card">
+      <h2>{{ pendingLeaves }}</h2>
+      <p>Pending Leaves</p>
+    </div>
+    <div class="card quick-links">
+      <h2>Quick Links</h2>
+      <ul>
+        <li><a routerLink="/employees">Manage Employees</a></li>
+        <li><a routerLink="/leaves">View Leaves</a></li>
+        <li><a routerLink="/holidays">Manage Holidays</a></li>
+        <li><a routerLink="/reports">Generate Reports</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="employees-list">
+    <h3>Employees</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of employees">
+          <td>{{ emp.name }}</td>
+          <td>{{ emp.email }}</td>
+          <td>{{ emp.role }}</td>
+          <td>
+            <button routerLink="/employees/edit/{{ emp.id }}">Edit</button>
+            <button routerLink="/employees/delete/{{ emp.id }}">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

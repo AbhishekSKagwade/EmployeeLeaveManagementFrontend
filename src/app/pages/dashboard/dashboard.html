@@ -1,0 +1,32 @@
+<div class="dashboard-page">
+  <header class="dashboard-header">
+    <h1>Company Portal</h1>
+    <span class="role-badge">Role: {{ userRole }}</span>
+  </header>
+
+  <main class="dashboard-content">
+    <div class="cards-container">
+
+      <div class="card" *ngIf="userRole === 'Admin' || userRole === 'Manager'" (click)="navigate('/leaves')">
+        <h3>Leaves</h3>
+        <p>View, approve, or reject leaves.</p>
+      </div>
+
+      <div class="card" (click)="navigate('/calendar')">
+        <h3>Calendar</h3>
+        <p>See team leave calendar.</p>
+      </div>
+
+      <div class="card" *ngIf="userRole === 'Admin'" (click)="navigate('/employees')">
+        <h3>Manage Users</h3>
+        <p>Add or remove employees/managers.</p>
+      </div>
+
+      <div class="card" *ngIf="userRole === 'Employee'" (click)="navigate('/my-leaves')">
+        <h3>My Leaves</h3>
+        <p>Apply and track your leaves.</p>
+      </div>
+
+    </div>
+  </main>
+</div>

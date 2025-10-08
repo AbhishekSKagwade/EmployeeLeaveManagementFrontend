@@ -1,0 +1,41 @@
+<div class="dashboard-wrapper">
+  <h1>Manager Dashboard</h1>
+
+  <div class="cards">
+    <div class="card">
+      <h2>{{ teamMembers.length }}</h2>
+      <p>Team Members</p>
+    </div>
+    <div class="card">
+      <h2>{{ pendingLeaves }}</h2>
+      <p>Pending Leaves</p>
+    </div>
+    <div class="card quick-links">
+      <h2>Quick Links</h2>
+      <ul>
+        <li><a routerLink="/leaves">Approve Leaves</a></li>
+        <li><a routerLink="/calendar">Team Calendar</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="team-list">
+    <h3>Team Members</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let member of teamMembers">
+          <td>{{ member.name }}</td>
+          <td>{{ member.email }}</td>
+          <td>{{ member.role }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

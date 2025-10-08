@@ -1,0 +1,53 @@
+<div class="container mt-4">
+  <h2>Employees Management</h2>
+
+  <div @if error class="alert alert-danger">{{ error }}</div>
+
+  <!-- Add/Edit Form -->
+  <div class="card mb-4 p-3">
+    <h5>{{ editingEmployee ? 'Edit Employee' : 'Add New Employee' }}</h5>
+    <form (ngSubmit)="saveEmployee()">
+      <div class="mb-2">
+        <input class="form-control" placeholder="Name" [(ngModel)]="formEmployee.name" name="name" required>
+      </div>
+      <div class="mb-2">
+        <input class="form-control" placeholder="Email" [(ngModel)]="formEmployee.email" name="email" required>
+      </div>
+      <div class="mb-2">
+        <input class="form-control" placeholder="Role ID" type="number" [(ngModel)]="formEmployee.roleId" name="roleId" required>
+      </div>
+      <div class="mb-2">
+        <input class="form-control" placeholder="Manager ID (optional)" type="number" [(ngModel)]="formEmployee.managerId" name="managerId">
+      </div>
+      <button type="submit" class="btn btn-success">{{ editingEmployee ? 'Update' : 'Add' }}</button>
+      <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+    </form>
+  </div>
+
+  <!-- Employees Table -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role ID</th>
+        <th>Manager ID</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of employees">
+        <td>{{ emp.employeeId }}</td>
+        <td>{{ emp.name }}</td>
+        <td>{{ emp.email }}</td>
+        <td>{{ emp.roleId }}</td>
+        <td>{{ emp.managerId }}</td>
+        <td>
+          <button class="btn btn-sm btn-primary" (click)="startEdit(emp)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="deleteEmployee(emp)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

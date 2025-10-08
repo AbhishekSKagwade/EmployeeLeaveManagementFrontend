@@ -1,0 +1,29 @@
+.footer {
+  background-color: #4e73df;
+  color: white;
+  text-align: center;
+  padding: 12px 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+/* If you have a sidebar, wrap the page content in a container and use padding-bottom instead of margin */
+body.has-sidebar .footer {
+  width: calc(100% - 220px); /* sidebar width */
+  margin-left: 220px;
+}
+
+/* Responsive for small screens */
+@media (max-width: 768px) {
+  .footer {
+    width: 100%;
+    margin-left: 0;
+    font-size: 13px;
+  }
+}

@@ -25,7 +25,9 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css"
+
             ]
           },
           "configurations": {
@@ -53,17 +55,21 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular/build:dev-server",
-          "configurations": {
-            "production": {
-              "buildTarget": "employee-leave-frontend:build:production"
-            },
-            "development": {
-              "buildTarget": "employee-leave-frontend:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
+  "builder": "@angular/build:dev-server",
+  "options": {
+    "proxyConfig": "proxy.conf.json"
+  },
+  "configurations": {
+    "production": {
+      "buildTarget": "employee-leave-frontend:build:production"
+    },
+    "development": {
+      "buildTarget": "employee-leave-frontend:build:development"
+    }
+  },
+  "defaultConfiguration": "development"
+}
+,
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n"
         },

@@ -1,0 +1,82 @@
+.dashboard-wrapper {
+  padding: 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+h1 {
+  color: #6c63ff;
+  margin-bottom: 20px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: white;
+  flex: 1 1 200px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.card h2 {
+  font-size: 32px;
+  color: #333;
+}
+
+.card p {
+  font-size: 16px;
+  color: #555;
+}
+
+.quick-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.quick-links ul li a {
+  text-decoration: none;
+  color: #6c63ff;
+  display: block;
+  margin: 5px 0;
+  transition: 0.3s;
+}
+
+.quick-links ul li a:hover {
+  text-decoration: underline;
+}
+
+.employees-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.employees-list th, .employees-list td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.employees-list th {
+  background-color: #f1f1f1;
+}
+
+button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background-color: #6c63ff;
+  color: white;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #5048c8;
+}

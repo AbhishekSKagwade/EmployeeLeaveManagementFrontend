@@ -26,7 +26,7 @@ import { AuthService } from '../../services/auth.service';
           <a routerLink="/holidays" routerLinkActive="active">Holidays</a>
         </li>
 
-        <li>
+        <li *ngIf="role !== 'Admin'">
           <a routerLink="/leaves" routerLinkActive="active">Leaves</a>
         </li>
 

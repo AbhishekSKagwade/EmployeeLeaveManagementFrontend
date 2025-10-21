@@ -3,10 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { EmployeeService } from '../../services/employee.service';
-import { LeaveService } from '../../services/leave.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Employee } from '../../models/employee.model';
-import { LeaveRequest } from '../../models/leave.model';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -18,9 +16,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class AdminDashboardPage implements OnInit {
   totalEmployees = 0;
-  pendingLeaves = 0;
   employees: Employee[] = [];
-  leaves: LeaveRequest[] = [];
 
   // For Add Employee form
   showAddForm = false;
@@ -36,13 +32,11 @@ export class AdminDashboardPage implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private employeeService: EmployeeService,
-    private leaveService: LeaveService
+    private employeeService: EmployeeService
   ) {}
 
   ngOnInit() {
     this.fetchEmployees();
-    this.fetchLeaves();
   }
 
   // Fetch all employees
@@ -54,19 +48,6 @@ export class AdminDashboardPage implements OnInit {
       },
       error: (err) => {
         console.error('Error fetching employees:', err);
-      }
-    });
-  }
-
-  // Fetch all leaves
-  fetchLeaves() {
-    this.leaveService.getAllLeaves().subscribe({
-      next: (res: LeaveRequest[]) => {
-        this.leaves = res;
-        this.pendingLeaves = res.filter(l => l.status === 'Pending').length;
-      },
-      error: (err) => {
-        console.error('Error fetching leaves:', err);
       }
     });
   }

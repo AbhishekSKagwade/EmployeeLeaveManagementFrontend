@@ -7,7 +7,7 @@ import { Holiday } from '../models/holiday.model';
   providedIn: 'root'
 })
 export class HolidayService {
-  private baseUrl = 'http://localhost:5081/api/Holiday';
+  private baseUrl = '/api/Holiday';
 
   constructor(private http: HttpClient) {}
 

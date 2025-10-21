@@ -1,0 +1,346 @@
+.calendar-page-container {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding-bottom: 2rem;
+}
+
+.header-section {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.calendar-section .card {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.legend-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #495057;
+}
+
+/* Holiday Count Badge */
+.holiday-count-badge {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+  min-width: 70px;
+}
+
+.holiday-count-badge .count {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.holiday-count-badge .label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+}
+
+/* Compact Holiday List */
+.holidays-compact-list {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.holiday-compact-item {
+  margin-bottom: 1rem;
+}
+
+.holiday-compact-item:last-child {
+  margin-bottom: 0;
+}
+
+.holiday-compact-card {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  border-radius: 8px;
+  padding: 1rem;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(5px);
+}
+
+.holiday-compact-card:hover {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: translateX(2px);
+}
+
+.holiday-compact-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.holiday-compact-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.holiday-compact-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.holiday-compact-title {
+  color: #2d3748;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.holiday-compact-dates {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.date-range {
+  color: #718096;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.days-badge {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.holiday-compact-description {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+/* Compact Empty State */
+.empty-state-compact {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.empty-state-compact .empty-state-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #a0aec0;
+  margin: 0 auto 1rem;
+}
+
+.empty-state-compact .empty-state-title {
+  color: #2d3748;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state-compact .empty-state-text {
+  color: #718096;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* FullCalendar Custom Styles */
+:host ::ng-deep .fc {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+:host ::ng-deep .fc-header-toolbar {
+  margin-bottom: 2rem !important;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+:host ::ng-deep .fc-toolbar-title {
+  font-size: 1.75rem !important;
+  font-weight: 700 !important;
+  color: #2d3748 !important;
+}
+
+:host ::ng-deep .fc-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  text-transform: capitalize !important;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+:host ::ng-deep .fc-button:hover {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4) !important;
+}
+
+:host ::ng-deep .fc-button:not(:disabled).fc-button-active {
+  background: linear-gradient(135deg, #4c51bf 0%, #553c9a 100%) !important;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3) !important;
+}
+
+:host ::ng-deep .fc-daygrid-day {
+  transition: all 0.2s ease !important;
+}
+
+:host ::ng-deep .fc-daygrid-day:hover {
+  background-color: rgba(102, 126, 234, 0.05) !important;
+}
+
+:host ::ng-deep .fc-event {
+  border-radius: 6px !important;
+  border: none !important;
+  font-weight: 600 !important;
+  font-size: 0.85rem !important;
+  padding: 4px 8px !important;
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+:host ::ng-deep .fc-event:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 16px rgba(220, 53, 69, 0.4) !important;
+}
+
+:host ::ng-deep .fc-day-today {
+  background-color: rgba(102, 126, 234, 0.08) !important;
+}
+
+:host ::ng-deep .fc-col-header {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+  border-bottom: 2px solid #cbd5e0 !important;
+}
+
+:host ::ng-deep .fc-col-header-cell {
+  font-weight: 700 !important;
+  color: #2d3748 !important;
+  text-transform: uppercase !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.5px !important;
+}
+
+:host ::ng-deep .fc-daygrid-day-number {
+  font-weight: 600 !important;
+  color: #2d3748 !important;
+  font-size: 1.1rem !important;
+}
+
+:host ::ng-deep .fc-daygrid-day-top {
+  padding: 8px !important;
+}
+
+:host ::ng-deep .fc-popover {
+  border-radius: 12px !important;
+  border: none !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15) !important;
+  overflow: hidden !important;
+}
+
+:host ::ng-deep .fc-popover-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  padding: 12px 16px !important;
+}
+
+:host ::ng-deep .fc-popover-body {
+  padding: 0 !important;
+}
+
+:host ::ng-deep .fc-popover-body .fc-event {
+  margin: 8px 16px !important;
+  border-radius: 6px !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .calendar-page-container {
+    padding-bottom: 1rem;
+  }
+
+  .header-section .row {
+    text-align: center !important;
+  }
+
+  .header-section .col-md-4 {
+    margin-top: 1rem;
+  }
+
+  :host ::ng-deep .fc-header-toolbar {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+
+  :host ::ng-deep .fc-toolbar-title {
+    font-size: 1.5rem !important;
+  }
+
+  .legend-item {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  :host ::ng-deep .fc-toolbar-title {
+    font-size: 1.25rem !important;
+  }
+
+  :host ::ng-deep .fc-button {
+    font-size: 0.8rem !important;
+    padding: 0.375rem 0.75rem !important;
+  }
+}

@@ -1,1 +1,85 @@
-<p>calendar works!</p>
+<div class="calendar-page-container">
+  <div class="header-section py-5">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h1 class="mb-2 fw-bold">
+            <i class="bi bi-calendar-event me-3 fs-1"></i>Company Calendar
+          </h1>
+          <p class="mb-0 fs-5">View all company holidays and special dates</p>
+        </div>
+        <div class="col-md-4 text-end">
+          <div class="d-flex align-items-center justify-content-end gap-3">
+            <div class="legend-item">
+              <div class="legend-color" style="background-color: #dc3545;"></div>
+              <span class="legend-text">Company Holidays</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="calendar-section">
+    <div class="container-fluid">
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+          <full-calendar [options]="calendarOptions"></full-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="holidays-list-section mt-5">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <div>
+              <h3 class="mb-1 fw-bold text-dark">
+                <i class="bi bi-calendar-check me-3 fs-2 text-danger"></i>Upcoming Holidays
+              </h3>
+              <p class="mb-0 text-muted fs-6">Stay informed about company holidays and special dates</p>
+            </div>
+            <div class="holiday-count-badge">
+              <span class="count">{{ holidays.length }}</span>
+              <span class="label">Total</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="holidays-compact-list" *ngIf="holidays.length > 0; else noHolidays">
+        <div class="holiday-compact-item" *ngFor="let holiday of holidays | slice:0:8">
+          <div class="holiday-compact-card">
+            <div class="holiday-compact-header">
+              <div class="holiday-compact-icon">
+                <i class="bi bi-calendar-event-fill"></i>
+              </div>
+              <div class="holiday-compact-content">
+                <h6 class="holiday-compact-title mb-1">{{ holiday.title }}</h6>
+                <div class="holiday-compact-dates">
+                  <span class="date-range">{{ holiday.startDate | date:'MMM dd' }} - {{ holiday.endDate | date:'MMM dd, yyyy' }}</span>
+                  <span class="days-badge">{{ getDaysDifference(holiday.startDate, holiday.endDate) }} days</span>
+                </div>
+              </div>
+            </div>
+            <div class="holiday-compact-description" *ngIf="holiday.description">
+              <small class="text-muted">{{ holiday.description }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #noHolidays>
+        <div class="empty-state-compact">
+          <div class="empty-state-icon">
+            <i class="bi bi-calendar-event"></i>
+          </div>
+          <h5 class="empty-state-title">No Upcoming Holidays</h5>
+          <p class="empty-state-text">There are no holidays scheduled at the moment.</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

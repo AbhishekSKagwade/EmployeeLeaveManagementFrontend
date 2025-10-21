@@ -1,121 +1,153 @@
-/* Holidays Page Styles */
+/* CSS Variables for a vibrant and professional theme */
+:root {
+  --primary-color: #9C27B0; /* Purple */
+  --secondary-color: #4CAF50; /* Green */
+  --accent-color: #FF9800; /* Orange */
+  --light-bg: #F3E5F5; /* Light purple */
+  --hover-bg: #E8F5E8; /* Light green */
+  --row-bg: #FFF3E0; /* Light orange */
+  --text-dark: #212529;
+  --text-muted: #6c757d;
+  --border-color: #e1bee7;
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Page Container */
 .holidays-page-container {
   min-height: 100vh;
-  background-color: #f8f9fa;
+  background: linear-gradient(135deg, var(--light-bg) 0%, var(--hover-bg) 100%);
+  font-family: 'Poppins', sans-serif;
 }
 
+/* Header */
 .header-section {
-  background-color: #ffffff;
-  border-bottom: 1px solid #e9ecef;
+  background: linear-gradient(to right, var(--primary-color), #673AB7, #3F51B5);
+  color: rgb(255, 255, 255);
+  box-shadow: 0 4px 10px var(--shadow);
 }
 
-.add-form-section {
-  background-color: #f8f9fa;
+.header-section h1, .header-section p {
+  color: rgb(0, 0, 0) !important;
 }
 
-.holidays-list-section {
-  background-color: #f8f9fa;
-  padding: 2rem 0;
+.header-section .bi {
+  color: var(--secondary-color) !important;
 }
 
-.table-light {
-  background-color: #f8f9fa;
-  border: none;
-}
-
-.table-light th {
-  color: #6c757d;
-  border: none;
-  font-weight: 600;
-  font-size: 0.875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.table-hover tbody tr:hover {
-  background-color: #f1f3f4;
-}
-
-.edit-dropdown {
-  background-color: #f8f9fa;
-}
-
-.edit-row {
-  background-color: #f8f9fa;
-}
-
-.btn-group .btn {
-  margin: 0 2px;
-}
-
-.btn-group .btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.form-control:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
+/* Cards */
 .card {
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  color: rgb(0, 0, 0) !important;
   transition: all 0.3s ease;
 }
 
 .card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
 }
 
+.card-header {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.card-header .bi {
+  color: var(--primary-color);
+}
+
+/* Form Labels */
+.form-label .bi {
+  color: var(--primary-color);
+}
+
+/* Table */
+.table-light {
+  background-color: var(--light-bg);
+}
+
+.table-light th {
+  color: var(--text-dark);
+  font-weight: 700;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 3px solid var(--primary-color);
+}
+
+.table tbody td {
+  border-top: 1px solid var(--border-color);
+  color: var(--text-dark);
+}
+
+.table-hover tbody tr:nth-child(odd) {
+  background-color: var(--row-bg);
+}
+
+.table-hover tbody tr:nth-child(even) {
+  background-color: white;
+}
+
+.table-hover tbody tr:hover {
+  background-color: var(--hover-bg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.table .bi {
+  color: var(--secondary-color);
+}
+
+/* Edit Row */
+.edit-row {
+  background-color: var(--hover-bg);
+}
+
+.edit-dropdown .card {
+  border: 2px solid var(--secondary-color);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+}
+
+.edit-dropdown .card-header .bi,
+.edit-dropdown .form-label .bi {
+  color: var(--secondary-color);
+}
+
+/* Buttons */
 .btn {
+  border-radius: 0.6rem;
+  font-weight: 600;
   transition: all 0.3s ease;
 }
 
-.btn:hover {
-  transform: translateY(-1px);
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(156, 39, 176, 0.4);
 }
 
-.badge {
-  font-weight: 500;
+.btn-warning {
+  color: var(--text-dark);
+  background-color: #FFC107;
+  border-color: #FFC107;
 }
 
-/* Responsive adjustments */
+.btn-warning:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(255, 193, 7, 0.5);
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+/* Badge */
+.badge.bg-secondary {
+  background-color: var(--secondary-color) !important;
+}
+
+/* Form Focus */
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(156, 39, 176, 0.4);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .header-section .col-md-8 {
-    text-align: center !important;
-    margin-bottom: 1rem;
-  }
-
-  .header-section .col-md-4.text-end {
-    text-align: center !important;
-  }
-
-  .btn-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .btn-group .btn {
-    margin: 0;
-  }
-}
-
-@media (max-width: 576px) {
-  .container-fluid {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  .card-body {
-    padding: 1rem !important;
-  }
-
-  .table-responsive {
-    font-size: 0.875rem;
-  }
-
-  .btn-lg {
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
   }
 }

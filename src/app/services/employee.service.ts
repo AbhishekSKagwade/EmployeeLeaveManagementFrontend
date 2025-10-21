@@ -6,28 +6,34 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EmployeeService {
-  private apiUrl = 'https://localhost:7215/api/Employee';
+  private readonly apiUrl = 'https://localhost:7215/api/Employee';
 
   constructor(private http: HttpClient) {}
 
-  getAllEmployees(): Observable<any> {
-    return this.http.get(`${this.apiUrl}`);
+  // ✅ Get all employees
+  getAllEmployees(includeInactive: boolean = false): Observable<any[]> {
+    const params = includeInactive ? { includeInactive: 'true' } : {};
+    return this.http.get<any[]>(this.apiUrl, { params: params as any });
   }
 
-  // CRUDs (optional)
+  // ✅ Get employee by ID
   getEmployeeById(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}`);
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
-  addEmployee(data: any): Observable<any> {
-    return this.http.post(this.apiUrl, data);
+  // ✅ Add a new employee
+  addEmployee(employee: any): Observable<any> {
+    const { id, ...payload } = employee; // Exclude id from payload
+    return this.http.post<any>(this.apiUrl, payload);
   }
 
-  updateEmployee(id: number, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, data);
+  // ✅ Update existing employee
+  updateEmployee(id: number, employee: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${id}`, employee);
   }
 
+  // ✅ Delete employee by ID
   deleteEmployee(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
 }

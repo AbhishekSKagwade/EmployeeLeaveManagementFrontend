@@ -36,4 +36,13 @@ export class ManagerDashboardPage implements OnInit {
       this.pendingLeaves = leaves.filter(l => l.status === 'Pending').length;
     });
   }
+
+  getRoleBadgeClass(role: string): string {
+    switch (role.toLowerCase()) {
+      case 'admin': return 'bg-danger';
+      case 'manager': return 'bg-warning text-dark';
+      case 'employee': return 'bg-info';
+      default: return 'bg-secondary';
+    }
+  }
 }

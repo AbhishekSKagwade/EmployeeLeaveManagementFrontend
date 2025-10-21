@@ -1,11 +1,11 @@
 .sidebar {
   width: 220px;
-  background-color: #1cc88a;
-  color: white;
-  height: calc(100vh - 60px); /* subtract header height */
+  background-color: #2b14c4;
+  color: rgb(0, 0, 0);
+  height: calc(100vh - 60px);
   padding-top: 20px;
   position: fixed;
-  top: 60px; /* below header */
+  top: 60px;
   left: 0;
   overflow-y: auto;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
@@ -23,7 +23,7 @@
 }
 
 .sidebar a {
-  color: white;
+  color: rgb(0, 0, 0);
   text-decoration: none;
   display: block;
   padding: 12px 20px;
@@ -34,7 +34,7 @@
 
 .sidebar a.active,
 .sidebar a:hover {
-  background-color: #17a673;
+  background-color: #efefff;
   transform: translateX(3px);
 }
 

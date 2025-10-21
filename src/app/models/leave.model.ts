@@ -1,10 +1,12 @@
 export interface LeaveRequest {
   leaveRequestId: number;
   employeeId: number;
-  employeeName: string;
+  status: string;
+  reason: string;
+  leaveType: string;
   startDate: string;
   endDate: string;
-  leaveType: string;
-  reason: string;
-  status: 'Pending' | 'Approved' | 'Rejected';
+
+  // Add this to store employee name from backend
+  employeeName?: string;
 }

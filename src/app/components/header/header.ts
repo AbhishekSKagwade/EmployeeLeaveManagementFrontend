@@ -1,19 +1,28 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterModule],
-  template: `
-    <header class="p-3 bg-light d-flex justify-content-between align-items-center">
-      <h4>Employee Leave Management</h4>
-      <nav>
-        <a routerLink="/profile">Profile</a>
-        <a routerLink="/logout">Logout</a>
-      </nav>
-    </header>
-  `
+  imports: [CommonModule],
+  templateUrl: './header.html',
+  styleUrls: ['./header.css']
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  constructor(private auth: AuthService, private router: Router) {}
+
+  getUserName(): string {
+    return this.auth.getName() || 'User';
+  }
+
+  getUserRole(): string {
+    return this.auth.getRole() || 'Employee';
+  }
+
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/login']);
+  }
+}

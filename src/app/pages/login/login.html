@@ -1,15 +1,29 @@
-<div class="login-container">
-  <div class="login-card">
-    <h2>Login</h2>
-    <div class="form-group">
-      <label>Email</label>
-      <input type="email" [(ngModel)]="email" placeholder="Enter your email" />
+<div class="login-page">
+  <div class="left-panel">
+    <div class="branding">
+      <h1>Employee Leave Management</h1>
+      <p>Empowering teams with smarter leave management.</p>
     </div>
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" [(ngModel)]="password" placeholder="Enter your password" />
+  </div>
+
+  <div class="right-panel">
+    <div class="login-form">
+      <h2>Welcome Back!</h2>
+      <p class="subtitle">Login to your account</p>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" [(ngModel)]="email" placeholder="Enter your email" />
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" [(ngModel)]="password" placeholder="Enter your password" />
+      </div>
+
+      <div class="error-msg" *ngIf="error">{{ error }}</div>
+
+      <button (click)="login()" [disabled]="loading">{{ loading ? 'Logging in...' : 'Login' }}</button>
     </div>
-    <div class="error-msg" *ngIf="error">{{ error }}</div>
-    <button (click)="login()">Login</button>
   </div>
 </div>

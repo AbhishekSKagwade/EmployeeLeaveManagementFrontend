@@ -1,0 +1,121 @@
+/* Holidays Page Styles */
+.holidays-page-container {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.header-section {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.add-form-section {
+  background-color: #f8f9fa;
+}
+
+.holidays-list-section {
+  background-color: #f8f9fa;
+  padding: 2rem 0;
+}
+
+.table-light {
+  background-color: #f8f9fa;
+  border: none;
+}
+
+.table-light th {
+  color: #6c757d;
+  border: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f3f4;
+}
+
+.edit-dropdown {
+  background-color: #f8f9fa;
+}
+
+.edit-row {
+  background-color: #f8f9fa;
+}
+
+.btn-group .btn {
+  margin: 0 2px;
+}
+
+.btn-group .btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.card {
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.btn {
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.badge {
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header-section .col-md-8 {
+    text-align: center !important;
+    margin-bottom: 1rem;
+  }
+
+  .header-section .col-md-4.text-end {
+    text-align: center !important;
+  }
+
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .btn-group .btn {
+    margin: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .container-fluid {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .card-body {
+    padding: 1rem !important;
+  }
+
+  .table-responsive {
+    font-size: 0.875rem;
+  }
+
+  .btn-lg {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+}

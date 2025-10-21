@@ -1,53 +1,31 @@
-<app-header></app-header>
-<div class="d-flex">
-  <app-sidebar></app-sidebar>
+<div class="leaves-container">
+  <h2>Manage Leaves</h2>
 
-  <main class="p-4 w-100">
-    <h2>Leaves</h2>
-    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <div *ngIf="loading">Loading leaves...</div>
 
-    <!-- Employee Apply Leave Form -->
-    <div *ngIf="role === 'Employee'" class="mb-4">
-      <h4>Apply Leave</h4>
-      <form (ngSubmit)="applyLeave()">
-        <input type="text" placeholder="Leave Type" [(ngModel)]="newLeave.leaveType" name="leaveType" required>
-        <input type="date" placeholder="Start Date" [(ngModel)]="newLeave.startDate" name="startDate" required>
-        <input type="date" placeholder="End Date" [(ngModel)]="newLeave.endDate" name="endDate" required>
-        <input type="text" placeholder="Reason" [(ngModel)]="newLeave.reason" name="reason">
-        <button type="submit">Apply</button>
-      </form>
-    </div>
+  <table *ngIf="!loading && leaves.length > 0" class="leaves-table">
+    <thead>
+      <tr>
+        <th>Employee</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let leave of leaves">
+        <td>{{ leave.employeeName }}</td>
+        <td>{{ leave.fromDate | date }}</td>
+        <td>{{ leave.toDate | date }}</td>
+        <td>{{ leave.status }}</td>
+        <td>
+          <button (click)="approveLeave(leave.id)">Approve</button>
+          <button (click)="rejectLeave(leave.id)">Reject</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-    <!-- Leaves Table -->
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Employee</th>
-          <th>Type</th>
-          <th>Start</th>
-          <th>End</th>
-          <th>Status</th>
-          <th *ngIf="role !== 'Employee'">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let leave of leaves">
-          <td>{{ leave.leaveRequestId }}</td>
-          <td>{{ leave.employeeName || 'You' }}</td>
-          <td>{{ leave.leaveType }}</td>
-          <td>{{ leave.startDate | date }}</td>
-          <td>{{ leave.endDate | date }}</td>
-          <td>{{ leave.status }}</td>
-          <td *ngIf="role === 'Manager'">
-            <button (click)="approveLeave(leave)">Approve</button>
-            <button (click)="rejectLeave(leave)">Reject</button>
-          </td>
-          <td *ngIf="role === 'Employee'">
-            <button (click)="deleteLeave(leave)">Cancel</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </main>
+  <div *ngIf="!loading && leaves.length === 0">No leave records found.</div>
 </div>

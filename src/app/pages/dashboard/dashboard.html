@@ -1,32 +1,40 @@
-<div class="dashboard-page">
-  <header class="dashboard-header">
-    <h1>Company Portal</h1>
-    <span class="role-badge">Role: {{ userRole }}</span>
-  </header>
+<div class="dashboard-container">
+  <h2>Welcome, {{ userRole }}</h2>
 
-  <main class="dashboard-content">
-    <div class="cards-container">
-
-      <div class="card" *ngIf="userRole === 'Admin' || userRole === 'Manager'" (click)="navigate('/leaves')">
-        <h3>Leaves</h3>
-        <p>View, approve, or reject leaves.</p>
-      </div>
-
-      <div class="card" (click)="navigate('/calendar')">
-        <h3>Calendar</h3>
-        <p>See team leave calendar.</p>
-      </div>
-
-      <div class="card" *ngIf="userRole === 'Admin'" (click)="navigate('/employees')">
-        <h3>Manage Users</h3>
-        <p>Add or remove employees/managers.</p>
-      </div>
-
-      <div class="card" *ngIf="userRole === 'Employee'" (click)="navigate('/my-leaves')">
-        <h3>My Leaves</h3>
-        <p>Apply and track your leaves.</p>
-      </div>
-
+  <div class="stats-container">
+    <div class="stat-card">
+      <h3>Total Employees</h3>
+      <p>{{ stats.totalEmployees || 0 }}</p>
     </div>
-  </main>
+    <div class="stat-card">
+      <h3>Pending Leaves</h3>
+      <p>{{ stats.pendingLeaves || 0 }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>My Leaves</h3>
+      <p>{{ stats.myLeaves || 0 }}</p>
+    </div>
+  </div>
+
+  <div class="dashboard-links">
+    <div class="link-card" (click)="navigate('/employees')" *ngIf="userRole==='Admin'">
+      <h4>Manage Employees</h4>
+      <p>Create, update, or deactivate employees.</p>
+    </div>
+
+    <div class="link-card" (click)="navigate('/leaves')">
+      <h4>Manage Leaves</h4>
+      <p>View or approve leave requests.</p>
+    </div>
+
+    <div class="link-card" (click)="navigate('/holidays')" *ngIf="userRole==='Admin'">
+      <h4>Manage Holidays</h4>
+      <p>Add or remove holidays.</p>
+    </div>
+
+    <div class="link-card" (click)="navigate('/calendar')">
+      <h4>Calendar</h4>
+      <p>See your team’s leave schedule.</p>
+    </div>
+  </div>
 </div>

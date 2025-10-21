@@ -1,41 +1,41 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { LeaveRequest } from '../models/leave.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LeaveService {
-  private apiUrl = 'https://localhost:7215/api/Leave';
+  private apiUrl = `${environment.apiBaseUrl}/Leave`;
 
   constructor(private http: HttpClient) {}
 
-  applyLeave(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/apply`, data);
+  // Fetch leaves for a specific employee
+  getMyLeaves(employeeId: number): Observable<LeaveRequest[]> {
+    return this.http.get<LeaveRequest[]>(`${this.apiUrl}/my-leaves/${employeeId}`);
   }
 
-  getMyLeaves(employeeId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/my/${employeeId}`);
+  // Fetch team leaves for manager
+  getTeamLeaves(employeeId: number): Observable<LeaveRequest[]> {
+    return this.http.get<LeaveRequest[]>(`${this.apiUrl}/team-leaves/${employeeId}`);
   }
 
-  getTeamLeaves(employeeId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/team/${employeeId}`);
+  // ✅ Fetch all leaves for admin
+  getAllLeaves(): Observable<LeaveRequest[]> {
+    return this.http.get<LeaveRequest[]>(`${this.apiUrl}/all`);
   }
 
-  getAllLeaves(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/all`);
+  updateLeaveStatus(leaveRequestId: number, status: string) {
+    return this.http.put(`${this.apiUrl}/update-status/${leaveRequestId}`, { status });
   }
 
-  updateStatus(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/approve`, data);
+  deleteLeave(leaveRequestId: number) {
+    return this.http.delete(`${this.apiUrl}/delete/${leaveRequestId}`);
   }
 
-  updateLeaveStatus(id: number, status: string): Observable<any> {
-    return this.http.put(`${this.apiUrl}/status/${id}`, { status });
-  }
-
-  deleteLeave(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/cancel/${id}`);
+  addLeave(leave: Partial<LeaveRequest>) {
+    return this.http.post(`${this.apiUrl}/add`, leave);
   }
 }

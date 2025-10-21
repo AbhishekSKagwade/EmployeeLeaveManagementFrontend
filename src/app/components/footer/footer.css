@@ -13,7 +13,7 @@
   z-index: 1000;
 }
 
-/* If you have a sidebar, wrap the page content in a container and use padding-bottom instead of margin */
+
 body.has-sidebar .footer {
   width: calc(100% - 220px); /* sidebar width */
   margin-left: 220px;

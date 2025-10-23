@@ -1,153 +1,189 @@
-/* CSS Variables for a vibrant and professional theme */
-:root {
-  --primary-color: #9C27B0; /* Purple */
-  --secondary-color: #4CAF50; /* Green */
-  --accent-color: #FF9800; /* Orange */
-  --light-bg: #F3E5F5; /* Light purple */
-  --hover-bg: #E8F5E8; /* Light green */
-  --row-bg: #FFF3E0; /* Light orange */
-  --text-dark: #212529;
-  --text-muted: #6c757d;
-  --border-color: #e1bee7;
-  --shadow: rgba(0, 0, 0, 0.1);
-}
+/* ------------------------------------- */
+/* 1. Page Container & Global Reset */
+/* ------------------------------------- */
 
-/* Page Container */
 .holidays-page-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--light-bg) 0%, var(--hover-bg) 100%);
+  /* CLEAN: Use soft off-white background */
+  background: #f8f9fa;
   font-family: 'Poppins', sans-serif;
+  position: relative;
 }
 
-/* Header */
+/* Remove the distracting overlay gradient */
+.holidays-page-container::before {
+  content: none;
+}
+
+/* ------------------------------------- */
+/* 2. Header (Full Color Element) */
+/* ------------------------------------- */
+
 .header-section {
-  background: linear-gradient(to right, var(--primary-color), #673AB7, #3F51B5);
-  color: rgb(255, 255, 255);
-  box-shadow: 0 4px 10px var(--shadow);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Use primary gradient */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  /* CLEAN: Ensure text and icon are white/light for max contrast */
+  color: #ffffff !important;
 }
 
-.header-section h1, .header-section p {
-  color: rgb(0, 0, 0) !important;
+.header-section h1,
+.header-section p {
+  color: #ffffff !important; /* White text on dark gradient */
 }
 
+/* Accent color for the main icon */
 .header-section .bi {
-  color: var(--secondary-color) !important;
+  color: #17a2b8 !important; /* Use vibrant teal accent */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* Add shadow for pop */
 }
 
-/* Cards */
+/* ------------------------------------- */
+/* 3. Cards & Forms (White with Accents) */
+/* ------------------------------------- */
+
 .card {
-  border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  color: rgb(0, 0, 0) !important;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  /* CLEAN: Set card body to white */
+  background: white;
+  border: 1px solid #dee2e6; /* Add a subtle border */
   transition: all 0.3s ease;
 }
 
-.card:hover {
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  transform: translateY(-3px);
-}
-
 .card-header {
-  border-bottom: 1px solid var(--border-color);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Use primary gradient for header */
+  color: #ffffff;
+  border-radius: 16px 16px 0 0 !important;
+  border-bottom: none;
+  padding: 20px;
 }
 
+.card-header h4, .card-header h5 {
+  color: #ffffff; /* Ensure text is white */
+}
+
+/* Card Header Icon (Set to white for better contrast on gradient) */
 .card-header .bi {
-  color: var(--primary-color);
+  color: #ffffff !important;
 }
 
-/* Form Labels */
+/* Form Labels Icons (Use a dark version of primary color) */
 .form-label .bi {
-  color: var(--primary-color);
+  color: #667eea;
 }
 
-/* Table */
+/* ------------------------------------- */
+/* 4. Table (Clean Stripes & Color Underline) */
+/* ------------------------------------- */
+
 .table-light {
-  background-color: var(--light-bg);
+  /* CLEAN: Remove full background color, we use the gradient for TH */
+  background-color: transparent;
 }
 
 .table-light th {
-  color: var(--text-dark);
+  color: #ffffff; /* White text for contrast */
   font-weight: 700;
   padding: 1.25rem 1.5rem;
-  border-bottom: 3px solid var(--primary-color);
+  /* Use the primary gradient for the Table Header */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* Use the primary color end for the strong bottom border */
+  border-bottom: 3px solid #764ba2;
 }
 
 .table tbody td {
-  border-top: 1px solid var(--border-color);
-  color: var(--text-dark);
+  border-top: 1px solid #dee2e6;
+  color: #212529;
 }
 
+/* CLEAN: Use soft colors for striping */
 .table-hover tbody tr:nth-child(odd) {
-  background-color: var(--row-bg);
-}
-
-.table-hover tbody tr:nth-child(even) {
   background-color: white;
 }
 
+.table-hover tbody tr:nth-child(even) {
+  background-color: #e9ecef;
+}
+
 .table-hover tbody tr:hover {
-  background-color: var(--hover-bg);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background-color: #e9ecef;
 }
 
+/* Table Row Icons */
 .table .bi {
-  color: var(--secondary-color);
+  color: #17a2b8; /* Teal/Cyan accent */
 }
 
-/* Edit Row */
+/* ------------------------------------- */
+/* 5. Edit Row & Accent Card */
+/* ------------------------------------- */
+
 .edit-row {
-  background-color: var(--hover-bg);
+  background-color: #e9ecef;
 }
 
 .edit-dropdown .card {
-  border: 2px solid var(--secondary-color);
-  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+  border: 2px solid #ffc107; /* Amber border */
+  box-shadow: 0 6px 20px rgba(255, 193, 7, 0.3);
+}
+
+.edit-dropdown .card-header {
+  /* Gradient for Edit Header */
+  background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+  color: #ffffff;
+}
+
+.edit-dropdown .card-header h5 {
+  color: #ffffff;
 }
 
 .edit-dropdown .card-header .bi,
 .edit-dropdown .form-label .bi {
-  color: var(--secondary-color);
+  color: #ffffff !important; /* White icons on yellow gradient */
 }
 
-/* Buttons */
-.btn {
-  border-radius: 0.6rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
+/* ------------------------------------- */
+/* 6. Buttons & Badge */
+/* ------------------------------------- */
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  color: #ffffff;
 }
 
-.btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(156, 39, 176, 0.4);
+.btn-success {
+  /* Brighter, more consistent green gradient */
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  border: none;
+  color: #ffffff;
 }
 
 .btn-warning {
-  color: var(--text-dark);
-  background-color: #FFC107;
-  border-color: #FFC107;
+  background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+  border: none;
+  color: #ffffff; /* White text on dark yellow gradient */
 }
 
-.btn-warning:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(255, 193, 7, 0.5);
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
+.btn-outline-secondary {
+  /* Use muted text color for border and text */
+  border: 2px solid #6c757d;
+  color: #6c757d;
+}
+.btn-outline-secondary:hover {
+  background: #6c757d;
+  border-color: #6c757d;
+  color: #ffffff;
 }
 
-/* Badge */
+/* Badge (Set to Secondary Color) */
 .badge.bg-secondary {
-  background-color: var(--secondary-color) !important;
+  background: #17a2b8 !important;
+  color: #ffffff;
 }
 
 /* Form Focus */
-.form-control:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 0.2rem rgba(156, 39, 176, 0.4);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .header-section .col-md-8 {
-    margin-bottom: 1.5rem;
-  }
+.form-control:focus, .form-select:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
 }

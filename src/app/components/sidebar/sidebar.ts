@@ -11,19 +11,27 @@ import { AuthService } from '../../services/auth.service';
     <nav class="sidebar">
       <ul>
         <li>
-          <a routerLink="/admin-dashboard" routerLinkActive="active">Dashboard</a>
+          <a [routerLink]="getDashboardRoute()" routerLinkActive="active">Dashboard</a>
         </li>
 
         <li *ngIf="role === 'Admin'">
           <a routerLink="/employees" routerLinkActive="active">Employees</a>
         </li>
 
-        <li *ngIf="role !== 'Employee'">
+        <li *ngIf="role === 'Admin'">
           <a routerLink="/teams" routerLinkActive="active">Teams</a>
+        </li>
+
+        <li *ngIf="role === 'Manager'">
+          <a routerLink="/my-team" routerLinkActive="active">My Team</a>
         </li>
 
         <li *ngIf="role === 'Admin'">
           <a routerLink="/holidays" routerLinkActive="active">Holidays</a>
+        </li>
+
+        <li *ngIf="role === 'Admin'">
+          <a routerLink="/leave-types" routerLinkActive="active">Leave Types</a>
         </li>
 
         <li *ngIf="role !== 'Admin'">
@@ -32,6 +40,10 @@ import { AuthService } from '../../services/auth.service';
 
         <li>
           <a routerLink="/calendar" routerLinkActive="active">Calendar</a>
+        </li>
+
+        <li>
+          <a routerLink="/reports" routerLinkActive="active">Reports</a>
         </li>
       </ul>
     </nav>
@@ -43,5 +55,17 @@ export class SidebarComponent {
 
   constructor(private auth: AuthService) {
     this.role = this.auth.getRole() || 'Employee';
+  }
+
+  getDashboardRoute(): string {
+    switch (this.role) {
+      case 'Admin':
+        return '/admin-dashboard';
+      case 'Manager':
+        return '/manager-dashboard';
+      case 'Employee':
+      default:
+        return '/employee-dashboard';
+    }
   }
 }

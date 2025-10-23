@@ -1,31 +1,122 @@
-<div class="leaves-container">
-  <h2>Manage Leaves</h2>
+<!-- Page Header -->
+<div class="page-header">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col">
+        <h1 class="page-title">
+          <i class="bi bi-calendar-check me-3"></i>
+          {{ role === 'Admin' ? 'All Leaves' : role === 'Manager' ? 'Team Leaves' : 'My Leaves' }}
+        </h1>
+        <p class="page-subtitle">
+          <span class="badge" [ngClass]="getRoleBadgeClass()">
+            {{ role }}
+          </span>
+        </p>
+      </div>
+      <div class="col-auto">
+        <div class="stats-container">
+          <div class="stat-card">
+            <div class="stat-number">{{ leaves.length }}</div>
+            <div class="stat-label">Total Requests</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">{{ getPendingCount() }}</div>
+            <div class="stat-label">Pending</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div *ngIf="loading">Loading leaves...</div>
+<div class="container-fluid py-4">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-card">
+      <div class="loading-spinner"></div>
+      <h4 class="loading-text">Loading Leave Requests</h4>
+      <p class="loading-subtext">Please wait while we fetch your leave data...</p>
+    </div>
+  </div>
 
-  <table *ngIf="!loading && leaves.length > 0" class="leaves-table">
-    <thead>
-      <tr>
-        <th>Employee</th>
-        <th>From</th>
-        <th>To</th>
-        <th>Status</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let leave of leaves">
-        <td>{{ leave.employeeName }}</td>
-        <td>{{ leave.fromDate | date }}</td>
-        <td>{{ leave.toDate | date }}</td>
-        <td>{{ leave.status }}</td>
-        <td>
-          <button (click)="approveLeave(leave.id)">Approve</button>
-          <button (click)="rejectLeave(leave.id)">Reject</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- Leave Requests Grid -->
+  <div *ngIf="!loading && leaves.length > 0" class="leaves-grid">
+    <div class="leave-card" *ngFor="let leave of leaves; trackBy: trackByLeaveId">
+      <div class="leave-header">
+        <div class="leave-info">
+          <div class="employee-info" *ngIf="role !== 'Employee'">
+            <div class="employee-avatar">
+              <div class="avatar-circle">
+                {{ getEmployeeInitials(leave.employee ? (leave.employee.firstName + ' ' + leave.employee.lastName) : leave.employeeName) }}
+              </div>
+            </div>
+            <div class="employee-details">
+              <h5 class="employee-name">{{ leave.employee ? (leave.employee.firstName + ' ' + leave.employee.lastName) : leave.employeeName }}</h5>
+            </div>
+          </div>
+          <div class="leave-dates">
+            <div class="date-range">
+              <i class="bi bi-calendar-event me-2"></i>
+              <span class="date-text">{{ leave.startDate | date:'mediumDate' }} - {{ leave.endDate | date:'mediumDate' }}</span>
+            </div>
+            <div class="leave-duration">
+              <i class="bi bi-clock me-2"></i>
+              <span>{{ getLeaveDuration(leave.startDate, leave.endDate) }} days</span>
+            </div>
+          </div>
+        </div>
+        <div class="leave-status">
+          <span class="status-badge" [ngClass]="getStatusBadgeClass(leave.status)">
+            <i class="bi" [ngClass]="getStatusIcon(leave.status)"></i>
+            {{ leave.status }}
+          </span>
+        </div>
+      </div>
 
-  <div *ngIf="!loading && leaves.length === 0">No leave records found.</div>
+      <div class="leave-details" *ngIf="leave.reason">
+        <div class="detail-item">
+          <i class="bi bi-chat-quote me-2"></i>
+          <span class="detail-label">Reason:</span>
+          <span class="detail-value">{{ leave.reason }}</span>
+        </div>
+      </div>
+
+      <div class="leave-actions" *ngIf="shouldShowActions(leave)">
+        <div class="action-buttons">
+          <button
+            *ngIf="(role === 'Admin' || role === 'Manager') && leave.status === 'Pending'"
+            (click)="approveLeave(leave.leaveRequestId)"
+            class="btn btn-approve">
+            <i class="bi bi-check-circle me-2"></i>Approve
+          </button>
+          <button
+            *ngIf="(role === 'Admin' || role === 'Manager') && leave.status === 'Pending'"
+            (click)="rejectLeave(leave.leaveRequestId)"
+            class="btn btn-reject">
+            <i class="bi bi-x-circle me-2"></i>Reject
+          </button>
+          <button
+            *ngIf="role === 'Employee' && leave.status === 'Pending'"
+            (click)="deleteLeave(leave.leaveRequestId)"
+            class="btn btn-delete">
+            <i class="bi bi-trash me-2"></i>Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && leaves.length === 0" class="empty-state">
+    <div class="empty-icon">
+      <i class="bi bi-calendar-x"></i>
+    </div>
+    <h4 class="empty-title">No Leave Requests</h4>
+    <p class="empty-message">
+      {{ role === 'Employee' ? 'You haven\'t submitted any leave requests yet.' : 'No leave requests found for your team.' }}
+    </p>
+    <button *ngIf="role === 'Employee'" class="btn btn-primary" routerLink="/dashboard">
+      <i class="bi bi-plus-circle me-2"></i>Request Leave
+    </button>
+  </div>
 </div>

@@ -6,9 +6,12 @@ import { EmployeeDashboardPage } from './pages/employee-dashboard/employee-dashb
 import { LeavesPage } from './pages/leaves/leaves';
 import { EmployeesPage } from './pages/employee/employee';
 import { TeamsPageComponent } from './TeamsPage/TeamsPage.component';
+import { MyTeamComponent } from './pages/my-team/my-team.component';
 import { HolidaysPage } from './pages/holidays/holidays';
 import { CalendarPage } from './pages/calendar/calendar';
 import { ProfilePageComponent } from './pages/ProfilePage/ProfilePage.component';
+import { ReportsPage } from './pages/reports/reports.component';
+import { LeaveTypesComponent } from './pages/leave-types/leave-types.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
 
@@ -20,9 +23,12 @@ export const routes: Routes = [
   { path: 'leaves', component: LeavesPage, canActivate: [AuthGuard] },
   { path: 'employees', component: EmployeesPage, canActivate: [AuthGuard, RoleGuard], data: { role: 'Admin' } },
   { path: 'teams', component: TeamsPageComponent, canActivate: [AuthGuard] },
+  { path: 'my-team', component: MyTeamComponent, canActivate: [AuthGuard] },
+  { path: 'leave-types', component: LeaveTypesComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'Admin' } },
   { path: 'holidays', component: HolidaysPage, canActivate: [AuthGuard, RoleGuard], data: { role: 'Admin' } },
   { path: 'calendar', component: CalendarPage, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfilePageComponent, canActivate: [AuthGuard] },
+  { path: 'reports', component: ReportsPage, canActivate: [AuthGuard] },
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' }

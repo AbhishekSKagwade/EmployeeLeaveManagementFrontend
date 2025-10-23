@@ -12,14 +12,30 @@ export class LeaveService {
 
   constructor(private http: HttpClient) {}
 
-  // Fetch leaves for a specific employee
-  getMyLeaves(employeeId: number): Observable<LeaveRequest[]> {
-    return this.http.get<LeaveRequest[]>(`${this.apiUrl}/my-leaves/${employeeId}`);
+  // Fetch leaves for the current user
+  getMyLeaves(): Observable<LeaveRequest[]> {
+    return this.http.get<LeaveRequest[]>(`${this.apiUrl}/my`);
+  }
+
+  // Approve leave
+  approveLeave(leaveRequestId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/approve`, { leaveRequestId, approved: true });
+  }
+
+  // Reject leave
+  rejectLeave(leaveRequestId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/approve`, { leaveRequestId, approved: false });
+  }
+
+  // Delete leave (for employees to cancel pending leaves)
+  deleteLeave(leaveRequestId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/cancel/${leaveRequestId}`);
   }
 
   // Fetch team leaves for manager
-  getTeamLeaves(employeeId: number): Observable<LeaveRequest[]> {
-    return this.http.get<LeaveRequest[]>(`${this.apiUrl}/team-leaves/${employeeId}`);
+  getTeamLeaves(): Observable<LeaveRequest[]> {
+    console.log('Calling getTeamLeaves API:', `${this.apiUrl}/team`);
+    return this.http.get<LeaveRequest[]>(`${this.apiUrl}/team`);
   }
 
   // ✅ Fetch all leaves for admin
@@ -27,15 +43,9 @@ export class LeaveService {
     return this.http.get<LeaveRequest[]>(`${this.apiUrl}/all`);
   }
 
-  updateLeaveStatus(leaveRequestId: number, status: string) {
-    return this.http.put(`${this.apiUrl}/update-status/${leaveRequestId}`, { status });
-  }
 
-  deleteLeave(leaveRequestId: number) {
-    return this.http.delete(`${this.apiUrl}/delete/${leaveRequestId}`);
-  }
 
   addLeave(leave: Partial<LeaveRequest>) {
-    return this.http.post(`${this.apiUrl}/add`, leave);
+    return this.http.post(`${this.apiUrl}/apply`, leave);
   }
 }

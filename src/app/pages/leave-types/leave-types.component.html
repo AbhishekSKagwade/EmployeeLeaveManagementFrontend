@@ -1,0 +1,178 @@
+<!-- Leave Types Management Page -->
+<div class="dashboard-container">
+  <!-- Main Layout -->
+  <div class="main-layout">
+    <!-- Dashboard Content -->
+    <div class="dashboard-content">
+      <!-- Header Section -->
+      <div class="dashboard-header">
+        <div class="dashboard-title">
+          <i class="bi bi-calendar-check"></i>
+          Leave Types Management
+        </div>
+        <div class="dashboard-subtitle">
+          Manage and configure different types of leave available in the system
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-primary add-leave-type-btn" (click)="toggleAddForm()">
+            <i class="bi bi-plus-circle me-2"></i>Add Leave Type
+          </button>
+        </div>
+      </div>
+
+      <!-- Add Leave Type Form -->
+      <div *ngIf="showAddForm" class="form-card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0"><i class="bi bi-plus-circle me-2"></i>Add New Leave Type</h5>
+          <button class="btn btn-light btn-sm" (click)="toggleAddForm()">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="addLeaveType()" class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Leave Type Name *</label>
+              <input type="text" class="form-control" [(ngModel)]="newLeaveType.name" name="name" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Max Days Per Year</label>
+              <input type="number" class="form-control" [(ngModel)]="newLeaveType.maxPerYear" name="maxPerYear" min="1" placeholder="Leave empty for unlimited" />
+            </div>
+            <div class="col-12 text-end mt-3">
+              <button type="submit" class="btn btn-success me-2" [disabled]="loading">
+                <i class="bi bi-check-circle me-1"></i>Save
+              </button>
+              <button type="button" class="btn btn-outline-secondary" (click)="toggleAddForm()">
+                <i class="bi bi-x-circle me-1"></i>Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Edit Leave Type Form -->
+      <div *ngIf="showEditForm" class="form-card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0"><i class="bi bi-pencil me-2"></i>Edit Leave Type</h5>
+          <button class="btn btn-light btn-sm" (click)="toggleEditForm()">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="updateLeaveType()" class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Leave Type Name *</label>
+              <input type="text" class="form-control" [(ngModel)]="editLeaveType.name" name="editName" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Max Days Per Year</label>
+              <input type="number" class="form-control" [(ngModel)]="editLeaveType.maxPerYear" name="editMaxPerYear" min="1" placeholder="Leave empty for unlimited" />
+            </div>
+            <div class="col-12 text-end mt-3">
+              <button type="submit" class="btn btn-success me-2" [disabled]="loading">
+                <i class="bi bi-check-circle me-1"></i>Update
+              </button>
+              <button type="button" class="btn btn-outline-secondary" (click)="toggleEditForm()">
+                <i class="bi bi-x-circle me-1"></i>Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Leave Types List -->
+      <div class="content-card">
+        <div class="card-header">
+          <h5 class="mb-0"><i class="bi bi-list-ul me-2"></i>Leave Types</h5>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="leave-types-table table mb-0">
+              <thead>
+                <tr>
+                  <th><i class="bi bi-hash me-1"></i>ID</th>
+                  <th><i class="bi bi-tag me-1"></i>Name</th>
+                  <th><i class="bi bi-calendar me-1"></i>Max Days Per Year</th>
+                  <th><i class="bi bi-toggle-on me-1"></i>Status</th>
+                  <th><i class="bi bi-gear me-1"></i>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let leaveType of leaveTypes">
+                  <td>{{ leaveType.leaveTypeId }}</td>
+                  <td class="leave-type-name">{{ leaveType.name }}</td>
+                  <td class="max-per-year">{{ leaveType.maxPerYear || 'Unlimited' }}</td>
+                  <td>
+                    <span class="status-badge" [ngClass]="leaveType.isActive ? 'active' : 'inactive'">
+                      {{ leaveType.isActive ? 'Active' : 'Inactive' }}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="action-buttons d-flex gap-2">
+                      <button class="btn btn-outline-primary btn-sm" (click)="toggleEditForm(leaveType)" title="Edit">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button class="btn btn-outline-secondary btn-sm" (click)="toggleLeaveTypeStatus(leaveType.leaveTypeId)" title="Toggle Status">
+                        <i class="bi bi-toggle-on"></i>
+                      </button>
+                      <button class="btn btn-outline-danger btn-sm" (click)="deleteLeaveType(leaveType.leaveTypeId)" title="Delete">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr *ngIf="leaveTypes.length === 0 && !loading">
+                  <td colspan="5" class="text-center py-4">
+                    <div class="empty-state">
+                      <i class="bi bi-calendar-x"></i>
+                      <p>No leave types found.</p>
+                      <small>Click "Add Leave Type" to create your first leave type.</small>
+                    </div>
+                  </td>
+                </tr>
+                <tr *ngIf="loading">
+                  <td colspan="5" class="text-center py-4">
+                    <div class="loading-overlay">
+                      <div class="spinner"></div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions-card">
+        <div class="card-header">
+          <h5 class="mb-0"><i class="bi bi-lightning me-2"></i>Quick Actions</h5>
+        </div>
+        <div class="quick-actions-content">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <a routerLink="/employees" class="quick-action-button text-decoration-none">
+                <div class="action-content">
+                  <div class="action-icon">
+                    <i class="bi bi-people-fill"></i>
+                  </div>
+                  <div class="action-label">Manage Employees</div>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-6">
+              <a routerLink="/holidays" class="quick-action-button text-decoration-none">
+                <div class="action-content">
+                  <div class="action-icon">
+                    <i class="bi bi-calendar-event-fill"></i>
+                  </div>
+                  <div class="action-label">Manage Holidays</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,117 +1,177 @@
-<div class="container-fluid py-4">
-  <div class="row mb-4">
-    <div class="col-12">
-      <div class="welcome-card bg-gradient-primary text-white p-4 rounded-3 shadow">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <h1 class="mb-1">
-              <i class="bi bi-person-circle me-2"></i>Welcome back, {{ userName }}!
-            </h1>
-            <p class="mb-0 opacity-75">Here's an overview of your leave requests</p>
-          </div>
-          <div class="text-end">
-            <div class="fs-2 fw-bold">{{ pendingLeaves }}</div>
-            <div class="small">Pending Leaves</div>
-          </div>
-        </div>
+<!-- Container -->
+<div class="dashboard-container">
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <div class="hero-icon">
+        <i class="bi bi-person-circle"></i>
+      </div>
+      <h1 class="hero-title">Welcome back, {{ userName }}!</h1>
+      <p class="hero-subtitle">Here's an overview of your leave requests and quick actions</p>
+    </div>
+  </div>
+
+  <!-- Stats Overview -->
+  <div class="stats-overview">
+    <div class="stat-card" *ngFor="let balance of leaveBalances">
+      <div class="stat-icon" [style.background]="balance.color">
+        <i class="bi bi-calendar-check"></i>
+      </div>
+      <div class="stat-content">
+        <h3>{{ getLeaveBalanceDisplay(balance) }}</h3>
+        <p>{{ balance.type }}</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+        <i class="bi bi-clock-history"></i>
+      </div>
+      <div class="stat-content">
+        <h3>{{ pendingLeaves }}</h3>
+        <p>Pending Requests</p>
       </div>
     </div>
   </div>
 
   <!-- Quick Actions -->
-  <div class="row mb-4">
-    <div class="col-12">
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title mb-3">
-            <i class="bi bi-lightning-charge me-2"></i>Quick Actions
-          </h5>
-          <div class="row g-2">
-            <div class="col-md-3 col-sm-6">
-              <button class="btn btn-primary w-100" routerLink="/leaves">
-                <i class="bi bi-plus-circle me-2"></i>Request Leave
-              </button>
-            </div>
-            <div class="col-md-3 col-sm-6">
-              <button class="btn btn-outline-success w-100" routerLink="/calendar">
-                <i class="bi bi-calendar me-2"></i>View Calendar
-              </button>
-            </div>
-            <div class="col-md-3 col-sm-6">
-              <button class="btn btn-outline-info w-100" routerLink="/profile">
-                <i class="bi bi-person me-2"></i>My Profile
-              </button>
-            </div>
-            <div class="col-md-3 col-sm-6">
-              <button class="btn btn-outline-warning w-100" routerLink="/teams">
-                <i class="bi bi-people me-2"></i>My Team
-              </button>
-            </div>
+  <div class="reports-grid">
+    <div class="report-card">
+      <div class="report-header">
+        <div class="report-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+          <i class="bi bi-lightning-charge"></i>
+        </div>
+        <div class="report-info">
+          <h3 class="report-title">Apply For Leave</h3>
+          <p class="report-description">You can apply for Leave here</p>
+        </div>
+      </div>
+      <div class="report-actions">
+        <button class="btn btn-generate" (click)="openQuickForm()">
+          <i class="bi bi-plus-circle"></i>
+          Quick Request
+        </button>
+        <button class="btn btn-download" routerLink="/leaves">
+          <i class="bi bi-calendar-plus"></i>
+          Full Request
+        </button>
+      </div>
+    </div>
+
+
+
+    <div class="report-card">
+      <div class="report-header">
+        <div class="report-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+          <i class="bi bi-person"></i>
+        </div>
+        <div class="report-info">
+          <h3 class="report-title">Profile</h3>
+          <p class="report-description">Manage your account settings</p>
+        </div>
+      </div>
+      <div class="report-actions">
+        <button class="btn btn-generate" routerLink="/profile">
+          <i class="bi bi-person-circle"></i>
+          My Profile
+        </button>
+        <button class="btn btn-download" routerLink="/my-team">
+          <i class="bi bi-people"></i>
+          My Team
+        </button>
+      </div>
+    </div>
+
+
+  </div>
+
+  <!-- Calendar Section -->
+  <div class="calendar-section">
+    <div class="report-card calendar-card">
+      <div class="report-header">
+        <div class="report-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+          <i class="bi bi-calendar"></i>
+        </div>
+        <div class="report-info">
+          <h3 class="report-title">Leave Calendar</h3>
+          <p class="report-description">View your leave requests and holidays</p>
+        </div>
+      </div>
+      <div class="calendar-container">
+        <full-calendar *ngIf="calendarOptions" [options]="calendarOptions"></full-calendar>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notifications Section -->
+  <div class="notifications-section">
+    <div class="report-card">
+      <div class="report-header">
+        <div class="report-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+          <i class="bi bi-bell"></i>
+        </div>
+        <div class="report-info">
+          <h3 class="report-title">Notifications</h3>
+          <p class="report-description">Recent updates and alerts</p>
+        </div>
+      </div>
+      <div class="notifications-list">
+        <div *ngFor="let notification of notifications" class="notification-item">
+          <div class="notification-icon">
+            <i [ngClass]="getNotificationIcon(notification.type)"></i>
           </div>
+          <div class="notification-content">
+            <p>{{ notification.message }}</p>
+            <small>{{ notification.date | date:'short' }}</small>
+          </div>
+          <button class="btn-close" (click)="dismissNotification(notification.id)">
+            <i class="bi bi-x"></i>
+          </button>
+        </div>
+        <div *ngIf="notifications.length === 0" class="empty-state">
+          <i class="bi bi-bell-slash"></i>
+          <p>No new notifications</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Leave Requests Table -->
-  <div class="row">
-    <div class="col-12">
-      <div class="card shadow">
-        <div class="card-header bg-light d-flex justify-content-between align-items-center">
-          <h5 class="card-title mb-0">
-            <i class="bi bi-calendar-check me-2"></i>My Leave Requests
-          </h5>
-          <span class="badge bg-primary fs-6">{{ myLeaves.length }} Total</span>
-        </div>
-        <div class="card-body p-0">
-          <div class="table-responsive">
-            <table class="table table-hover mb-0">
-              <thead class="table-dark">
-                <tr>
-                  <th><i class="bi bi-hash me-1"></i>ID</th>
-                  <th><i class="bi bi-person me-1"></i>Employee</th>
-                  <th><i class="bi bi-tag me-1"></i>Leave Type</th>
-                  <th><i class="bi bi-calendar-event me-1"></i>Start Date</th>
-                  <th><i class="bi bi-calendar-event-fill me-1"></i>End Date</th>
-                  <th><i class="bi bi-check-circle me-1"></i>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let leave of myLeaves" class="align-middle">
-                  <td>
-                    <span class="badge bg-secondary">{{ leave.leaveRequestId }}</span>
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <div class="avatar-circle me-2">{{ (leave.employeeName || 'N').charAt(0).toUpperCase() }}</div>
-                      {{ leave.employeeName || 'N/A' }}
-                    </div>
-                  </td>
-                  <td>
-                    <span class="badge bg-light text-dark border">{{ leave.leaveType }}</span>
-                  </td>
-                  <td>{{ leave.startDate | date:'mediumDate' }}</td>
-                  <td>{{ leave.endDate | date:'mediumDate' }}</td>
-                  <td>
-                    <span class="badge fs-6" [ngClass]="getStatusBadgeClass(leave.status)">
-                      <i class="bi me-1" [ngClass]="getStatusIcon(leave.status)"></i>
-                      {{ leave.status }}
-                    </span>
-                  </td>
-                </tr>
-                <tr *ngIf="myLeaves.length === 0" class="text-center">
-                  <td colspan="6" class="py-4">
-                    <div class="text-muted">
-                      <i class="bi bi-calendar-x fs-1 mb-2"></i>
-                      <p class="mb-0">No leave requests found</p>
-                      <small>Start by requesting your first leave</small>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+
+
+  <!-- Quick Leave Request Modal -->
+  <div *ngIf="showQuickForm" class="modal-overlay" (click)="closeQuickForm()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h5 class="modal-title">Quick Leave Request</h5>
+        <button type="button" class="btn-close" (click)="closeQuickForm()"></button>
+      </div>
+      <div class="modal-body">
+        <form #quickForm="ngForm">
+          <div class="mb-3">
+            <label class="form-label">Leave Type</label>
+            <select class="form-select" [(ngModel)]="quickLeaveRequest.leaveTypeId" name="leaveTypeId" required>
+              <option value="">Select leave type</option>
+              <option *ngFor="let type of leaveTypes" [value]="type.leaveTypeId">{{ type.name }}</option>
+            </select>
           </div>
-        </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Start Date</label>
+              <input type="date" class="form-control" [(ngModel)]="quickLeaveRequest.startDate" name="startDate" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">End Date</label>
+              <input type="date" class="form-control" [(ngModel)]="quickLeaveRequest.endDate" name="endDate" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Reason (Optional)</label>
+            <textarea class="form-control" [(ngModel)]="quickLeaveRequest.reason" name="reason" rows="3"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeQuickForm()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="submitQuickLeave()" [disabled]="!quickForm.valid">Submit Request</button>
       </div>
     </div>
   </div>

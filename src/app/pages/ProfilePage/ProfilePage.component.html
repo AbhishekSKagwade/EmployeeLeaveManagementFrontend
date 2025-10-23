@@ -1,3 +1,64 @@
-<p>
-  ProfilePage works!
-</p>
+<div class="profile-container">
+  <div class="profile-header">
+    <h2>My Profile</h2>
+  </div>
+
+  <div class="profile-content" *ngIf="!loading && !error">
+    <div class="profile-card">
+      <div class="profile-avatar">
+        <div class="avatar-circle">
+          {{ employee?.firstName?.charAt(0) }}{{ employee?.lastName?.charAt(0) }}
+        </div>
+      </div>
+
+      <div class="profile-details">
+        <div class="detail-row">
+          <label>Full Name:</label>
+          <span>{{ getFullName() }}</span>
+        </div>
+
+        <div class="detail-row">
+          <label>Email:</label>
+          <span>{{ employee?.email }}</span>
+        </div>
+
+        <div class="detail-row">
+          <label>Phone:</label>
+          <span>{{ employee?.phone || 'Not provided' }}</span>
+        </div>
+
+        <div class="detail-row">
+          <label>Hire Date:</label>
+          <span>{{ formatDate(employee?.hireDate || '') }}</span>
+        </div>
+
+        <div class="detail-row">
+          <label>Role:</label>
+          <span>{{ employee?.role?.name }}</span>
+        </div>
+
+        <div class="detail-row">
+          <label>Team:</label>
+          <span>{{ employee?.team?.name }}</span>
+        </div>
+
+        <div class="detail-row">
+          <label>Status:</label>
+          <span class="status-badge" [class.active]="employee?.isActive" [class.inactive]="!employee?.isActive">
+            {{ employee?.isActive ? 'Active' : 'Inactive' }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="loading-spinner" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Loading profile...</p>
+  </div>
+
+  <div class="error-message" *ngIf="error">
+    <p>{{ error }}</p>
+    <button class="retry-btn" (click)="loadProfile()">Retry</button>
+  </div>
+</div>

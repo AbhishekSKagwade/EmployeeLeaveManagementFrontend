@@ -1,0 +1,124 @@
+<!-- Page Header -->
+<div class="page-header">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col">
+        <h1 class="page-title">
+          <i class="bi bi-people-fill me-3"></i>
+          My Team
+        </h1>
+        <p class="page-subtitle" *ngIf="teamData.teamName">{{ teamData.teamName }}</p>
+      </div>
+      <div class="col-auto">
+        <div class="team-stats">
+          <div class="stat-item">
+            <span class="stat-number">{{ teamData.members.length }}</span>
+            <span class="stat-label">Members</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid py-4">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-card">
+      <div class="loading-spinner"></div>
+      <h4 class="loading-text">Loading Team Information</h4>
+      <p class="loading-subtext">Please wait while we fetch your team details...</p>
+    </div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-container">
+    <div class="error-card">
+      <div class="error-icon">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+      </div>
+      <h4 class="error-title">Unable to Load Team</h4>
+      <p class="error-message">{{ error }}</p>
+      <button class="btn btn-primary" (click)="loadMyTeam()">
+        <i class="bi bi-arrow-clockwise me-2"></i>Try Again
+      </button>
+    </div>
+  </div>
+
+  <!-- Team Content -->
+  <div *ngIf="!loading && !error">
+    <!-- Manager Section -->
+    <div class="row mb-5" *ngIf="teamData.manager">
+      <div class="col-12">
+        <div class="manager-card">
+          <div class="manager-header">
+            <div class="manager-avatar">
+              <div class="avatar-circle-large">
+                {{ teamData.manager.firstName.charAt(0).toUpperCase() }}{{ teamData.manager.lastName.charAt(0).toUpperCase() }}
+              </div>
+            </div>
+            <div class="manager-info">
+              <h3 class="manager-name">{{ getFullName(teamData.manager) }}</h3>
+              <p class="manager-email">{{ teamData.manager.email }}</p>
+              <div class="manager-role">
+                <span class="role-badge manager-badge">
+                  <i class="bi bi-person-badge me-1"></i>
+                  {{ teamData.manager.role.name }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team Members Section -->
+    <div class="row">
+      <div class="col-12">
+        <div class="members-section">
+          <div class="section-header">
+            <h2 class="section-title">
+              <i class="bi bi-people me-2"></i>
+              Team Members
+            </h2>
+            <div class="member-count">{{ teamData.members.length }} members</div>
+          </div>
+
+          <!-- Members Grid -->
+          <div class="members-grid" *ngIf="teamData.members.length > 0">
+            <div class="member-card" *ngFor="let member of teamData.members">
+              <div class="member-avatar">
+                <div class="avatar-circle">
+                  {{ member.firstName.charAt(0).toUpperCase() }}{{ member.lastName.charAt(0).toUpperCase() }}
+                </div>
+              </div>
+              <div class="member-info">
+                <h4 class="member-name">{{ getFullName(member) }}</h4>
+                <p class="member-email">{{ member.email }}</p>
+                <div class="member-role">
+                  <span class="role-badge" [ngClass]="getRoleBadgeClass(member.role.name)">
+                    {{ member.role.name }}
+                  </span>
+                </div>
+              </div>
+              <div class="member-actions">
+                <button class="btn btn-outline-primary btn-sm">
+                  <i class="bi bi-envelope"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty State -->
+          <div class="empty-state" *ngIf="teamData.members.length === 0">
+            <div class="empty-icon">
+              <i class="bi bi-people"></i>
+            </div>
+            <h4 class="empty-title">No Team Members</h4>
+            <p class="empty-message">There are no other members in your team at the moment.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

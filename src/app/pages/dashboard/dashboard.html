@@ -1,40 +1,97 @@
-<div class="dashboard-container">
-  <h2>Welcome, {{ userRole }}</h2>
-
-  <div class="stats-container">
-    <div class="stat-card">
-      <h3>Total Employees</h3>
-      <p>{{ stats.totalEmployees || 0 }}</p>
-    </div>
-    <div class="stat-card">
-      <h3>Pending Leaves</h3>
-      <p>{{ stats.pendingLeaves || 0 }}</p>
-    </div>
-    <div class="stat-card">
-      <h3>My Leaves</h3>
-      <p>{{ stats.myLeaves || 0 }}</p>
+<div class="dashboard-content">
+  <!-- Header Section -->
+  <div class="dashboard-header">
+    <div class="dashboard-title">Welcome back, {{ userRole }}!</div>
+    <div class="dashboard-subtitle">Here's what's happening with your team today.</div>
+    <div class="header-actions">
+      <button class="btn btn-primary" (click)="navigate('/leaves')">
+        <i class="fas fa-plus me-2"></i>Request Leave
+      </button>
     </div>
   </div>
 
+  <!-- Stats Cards -->
+  <div class="stats-container">
+    <div class="stat-card">
+      <h3>{{ stats.totalEmployees || 0 }}</h3>
+      <p>Total Employees</p>
+      <small>Active team members</small>
+    </div>
+    <div class="stat-card">
+      <h3>{{ stats.pendingLeaves || 0 }}</h3>
+      <p>Pending Leaves</p>
+      <small>Awaiting approval</small>
+    </div>
+    <div class="stat-card">
+      <h3>{{ stats.myLeaves || 0 }}</h3>
+      <p>My Leaves</p>
+      <small>This year</small>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions-card">
+    <div class="card-header">
+      <h5><i class="fas fa-bolt text-warning me-2"></i>Quick Actions</h5>
+    </div>
+    <div class="quick-actions-content">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <a class="quick-action-button" (click)="navigate('/leaves')" style="cursor: pointer;">
+            <div class="action-content">
+              <i class="fas fa-calendar-plus action-icon"></i>
+              <p class="action-label">Request New Leave</p>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-6">
+          <a class="quick-action-button" (click)="navigate('/calendar')" style="cursor: pointer;">
+            <div class="action-content">
+              <i class="fas fa-calendar-alt action-icon"></i>
+              <p class="action-label">View Calendar</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard Links -->
   <div class="dashboard-links">
     <div class="link-card" (click)="navigate('/employees')" *ngIf="userRole==='Admin'">
+      <i class="fas fa-users card-icon"></i>
       <h4>Manage Employees</h4>
-      <p>Create, update, or deactivate employees.</p>
+      <p>Create, update, or deactivate employees in your organization.</p>
     </div>
 
     <div class="link-card" (click)="navigate('/leaves')">
+      <i class="fas fa-calendar-check card-icon"></i>
       <h4>Manage Leaves</h4>
-      <p>View or approve leave requests.</p>
+      <p>View, approve, or reject leave requests from your team.</p>
+    </div>
+
+    <div class="link-card" (click)="navigate('/leave-types')" *ngIf="userRole==='Admin'">
+      <i class="fas fa-tags card-icon"></i>
+      <h4>Leave Types</h4>
+      <p>Configure different types of leave available to employees.</p>
     </div>
 
     <div class="link-card" (click)="navigate('/holidays')" *ngIf="userRole==='Admin'">
+      <i class="fas fa-gift card-icon"></i>
       <h4>Manage Holidays</h4>
-      <p>Add or remove holidays.</p>
+      <p>Add or remove company holidays and special dates.</p>
     </div>
 
-    <div class="link-card" (click)="navigate('/calendar')">
-      <h4>Calendar</h4>
-      <p>See your team’s leave schedule.</p>
+    <div class="link-card" (click)="navigate('/reports')" *ngIf="userRole==='Admin'">
+      <i class="fas fa-chart-bar card-icon"></i>
+      <h4>Reports</h4>
+      <p>Generate detailed reports on leave usage and trends.</p>
+    </div>
+
+    <div class="link-card" (click)="navigate('/teams')" *ngIf="userRole==='Admin'">
+      <i class="fas fa-users-cog card-icon"></i>
+      <h4>Team Management</h4>
+      <p>Organize employees into teams and manage hierarchies.</p>
     </div>
   </div>
 </div>
